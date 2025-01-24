@@ -13,3 +13,11 @@ return null
 export const checkEndGame = (boardToCheck) => {
     return boardToCheck.every((square) => square != null)
   }
+
+export const checkSquare = (board, index) => {
+    const column = index % 4
+    const ColumnElemnts = board.filter((_, index) => index % 4 === column)
+    const indexNull = ColumnElemnts.reverse().findIndex((element) => element === null)
+    const idexColumElements = (3-indexNull)*4+column
+    return idexColumElements
+}

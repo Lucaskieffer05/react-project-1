@@ -2,7 +2,7 @@ import { useState } from 'react'
 import confetti from 'canvas-confetti'
 import { Square } from './components/Square.jsx'
 import { TURNS } from './constans.js'
-import { checkWinner, checkEndGame } from './logic/Board.js'
+import { checkWinner, checkEndGame, checkSquare} from './logic/Board.js'
 import { WinnerModal } from './components/WinnerModal.jsx'
 import { saveGameToStorage, resetGameFromStorage } from './logic/Storage/index.js'
 
@@ -11,7 +11,7 @@ function App() {
 
   const [board, setBoard] = useState(() => {
     const boardFromStorage = window.localStorage.getItem('board')
-    return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null)
+    return boardFromStorage ? JSON.parse(boardFromStorage) : Array(16).fill(null)
   })
 
   const [turn, setTurn] = useState(() => {
@@ -23,11 +23,13 @@ function App() {
 
   const updateBoard = (index) => {
 
-    if (board[index] || winner) return
+    if (winner) return
 
     // actualizar board
     const newBord = [...board]
-    newBord[index] = turn
+    const newIndex = checkSquare(newBord, index)
+    if(board[newIndex]) return
+    newBord[newIndex] = turn
     setBoard(newBord)
 
     // cambiar de turno
@@ -49,7 +51,7 @@ function App() {
   }
 
   const resetGame = () => {
-    setBoard(Array(9).fill(null))
+    setBoard(Array(16).fill(null))
     setTurn(TURNS.X)
     setWinner(null)
     resetGameFromStorage()
@@ -57,7 +59,7 @@ function App() {
 
   return (
     <main className='board'>
-      <h1>Ta Te Ti </h1>
+      <h1>Four in a row</h1>
       <section className='game'>
         {
           board.map((_, index) => {
