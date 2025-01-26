@@ -18,6 +18,7 @@ export const checkSquare = (board, index) => {
     const column = index % 4
     const ColumnElemnts = board.filter((_, index) => index % 4 === column)
     const indexNull = ColumnElemnts.reverse().findIndex((element) => element === null)
-    const idexColumElements = (3-indexNull)*4+column
-    return idexColumElements
+    if (indexNull === -1) return -1
+    const indexColumElements = (3-indexNull)*4+column
+    return indexColumElements
 }
