@@ -54,7 +54,7 @@ function App() {
   // Esta función del form se ejecuta con el evento submit, que es cuando se pulsa el botón de buscar
   const handleSubmit = (event) => {
     event.preventDefault()
-    getMovies()
+    getMovies({search})
   }
 
   const handleSort = () => {
