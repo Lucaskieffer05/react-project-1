@@ -3,11 +3,13 @@ import { useFilters } from './Hooks/useFilters';
 import { Products } from "./components/Products"
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { Cart } from './components/Cart';
+import { CartProvider } from './context/cartProvider';
 
 function App() {
 
   const { products, loading, error } = useProducts();
-  const { filters, setFilters, filterProducts } = useFilters({ products });
+  const { filterProducts } = useFilters({ products });
  
   const FilterProducts = filterProducts(products);
 
@@ -15,11 +17,12 @@ function App() {
   if (error) return <p>Error loading products: {error.message}</p>;
   
   return (
-    <>
-      <Header changeFilters={setFilters}/>
+    <CartProvider>
+      <Header />
+      <Cart />
       <Products products={FilterProducts}/>
-      <Footer filters={filters}/>
-    </>
+      <Footer />
+    </CartProvider>
   )
 }
 

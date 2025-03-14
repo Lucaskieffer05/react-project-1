@@ -44,3 +44,20 @@
     object-fit: cover;
     background: #fff;
   }
+
+  .button-add-remove-card {
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+
+  .button-add-remove-card.add {
+      background-color: green;
+  }
+
+  .button-add-remove-card.remove {
+      background-color: red;
+  } 
